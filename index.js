@@ -5,10 +5,6 @@ class SteamWorkshop {
         this.apiKey = apiKey;
     }
 
-    item(id) {
-        return new WorkshopItem(this, id);
-    }
-
     async getDetails(ids) {
         if(typeof(ids) === "number") ids = [ids];
 
