@@ -1,0 +1,21 @@
+{
+  "name": "steam-workshop-workflow",
+  "version": "1.0.0",
+  "description": "Github workflow to show Steam Workshop items on your github profile or project readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "node -r dotenv/config test.js"
+  },
+  "keywords": [
+    "github",
+    "workflow",
+    "steam",
+    "workshop"
+  ],
+  "author": "TechnologicNick",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.0"
+  }
+}
