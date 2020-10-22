@@ -8,7 +8,7 @@ input:
     required: true
     default: "${{ secrets.STEAM_API_KEY }}"
   comment_tag:
-    description: "The comment tags to look for: <!-- ${comment_tag}:START --> and <!-- ${comment_tag}:END -->"
+    description: "The comment tags to look for: <!-- comment_tag:START --> and <!-- comment_tag:END -->"
     required: true
     default: "WORKSHOP-SHOWCASE"
   readme_file:
