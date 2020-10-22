@@ -125,12 +125,12 @@ class WorkshopShowcase {
     for (let i = 0; i < details.length; i++) {
         const item = details[i];
         
-        let display = new ItemDisplay(item, path.join(__dirname, core.getInput("image_path", {required: true}), item.publishedfileid));
+        let display = new ItemDisplay(item, path.join(__dirname, core.getInput("image_path", {required: false}), item.publishedfileid));
         await display.generateImages();
     }
 
-    let showcase = new WorkshopShowcase(path.join(__dirname, core.getInput("readme_file", {required: true})));
-    showcase.writeShowcase(itemDisplays, core.getInput("comment_tag", {required: true}));
+    let showcase = new WorkshopShowcase(path.join(__dirname, core.getInput("readme_file", {required: false})));
+    showcase.writeShowcase(itemDisplays, core.getInput("comment_tag", {required: false}));
 
 })().catch(err => {
     core.setFailed(err);
