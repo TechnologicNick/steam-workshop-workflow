@@ -3,10 +3,6 @@ author: "TechnologicNick"
 description: "Update a README with information about Steam Workshop items"
 
 input:
-  github_token:
-    description: "GitHub access token with Repo scope"
-    required: false
-    default: ${{ github.token }}
   steam_api_key:
     description: "Steam API key used to interact with the Steam web API"
     required: true
