@@ -34,9 +34,11 @@ class ItemDisplay {
         this.imagePath = imagePath;
     }
 
-    generateImages() {
-        this.generatePreview("preview.png", 200, 200);
-        this.generateContent("content.png", 600, 200);
+    async generateImages() {
+        await Promise.all([
+            this.generatePreview("preview.png", 200, 200),
+            this.generateContent("content.png", 600, 200)
+        ]);
     }
 
     async generatePreview(filename, width, height) {
@@ -101,7 +103,7 @@ class WorkshopShowcase {
 
         let out = startText + "\n" + middleText + "\n" + endText;
         console.log("OUT:", out);
-        //fs.writeFileSync(this.filename, out);
+        fs.writeFileSync(this.filename, out);
     }
 }
 
@@ -124,7 +126,7 @@ class WorkshopShowcase {
         const item = details[i];
         
         let display = new ItemDisplay(item, path.join(__dirname, core.getInput("image_path", {required: true}), item.publishedfileid));
-        display.generateImages();
+        await display.generateImages();
     }
 
     let showcase = new WorkshopShowcase(path.join(__dirname, core.getInput("readme_file", {required: true})));
