@@ -2,7 +2,7 @@ name: "Steam Workshop Workflow"
 author: "TechnologicNick"
 description: "Update a README with information about Steam Workshop items"
 
-input:
+inputs:
   steam_api_key:
     description: "Steam API key used to interact with the Steam web API"
     required: true
