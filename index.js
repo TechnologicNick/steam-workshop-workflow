@@ -1,6 +1,8 @@
 const fetch = require('node-fetch');
 const { createCanvas, loadImage } = require('canvas');
 const fs = require('fs');
+const core = require('@actions/core');
+const path = require('path');
 
 
 class SteamWorkshop {
@@ -27,9 +29,9 @@ class SteamWorkshop {
 }
 
 class ItemDisplay {
-    constructor(details, path) {
+    constructor(details, imagePath) {
         this.details = details;
-        this.path = path;
+        this.imagePath = imagePath;
     }
 
     generateImages() {
@@ -69,7 +71,9 @@ class ItemDisplay {
 
     async saveFile(canvas, filename) {
         return new Promise((resolve, reject) => {
-            const out = fs.createWriteStream(this.path + filename);
+            fs.mkdirSync(this.imagePath, {recursive: true});
+
+            const out = fs.createWriteStream(path.join(this.imagePath, filename));
             const stream = canvas.createPNGStream();
             stream.pipe(out)
 
@@ -84,7 +88,7 @@ class WorkshopShowcase {
         this.filename = filename;
     }
 
-    writeShowcase(itemDisplays, commentTag = "WORKSHOP-SHOWCASE") {
+    writeShowcase(itemDisplays, commentTag) {
         let content = fs.readFileSync(this.filename, {encoding:"utf8", flag:"r"});
         console.log("IN:", content);
 
@@ -97,10 +101,33 @@ class WorkshopShowcase {
 
         let out = startText + "\n" + middleText + "\n" + endText;
         console.log("OUT:", out);
-        fs.writeFileSync(this.filename, out);
+        //fs.writeFileSync(this.filename, out);
     }
 }
 
-module.exports.SteamWorkshop = SteamWorkshop;
-module.exports.ItemDisplay = ItemDisplay;
-module.exports.WorkshopShowcase = WorkshopShowcase;
+// module.exports.SteamWorkshop = SteamWorkshop;
+// module.exports.ItemDisplay = ItemDisplay;
+// module.exports.WorkshopShowcase = WorkshopShowcase;
+
+(async ()=>{
+    const workshop = new SteamWorkshop(core.getInput("steam_api_key", {required: true}));
+
+    let inputItems = JSON.parse(core.getInput("workshop_items", {required: true}));
+    
+
+    let details = await workshop.getDetails(Object.keys(inputItems));
+    console.log(details);
+
+    let itemDisplays = {}
+
+    for (let i = 0; i < details.length; i++) {
+        const item = details[i];
+        
+        let display = new ItemDisplay(item, path.join(__dirname, core.getInput("image_path", {required: true}), item.publishedfileid));
+        display.generateImages();
+    }
+
+    let showcase = new WorkshopShowcase(path.join(__dirname, core.getInput("readme_file", {required: true})));
+    showcase.writeShowcase(itemDisplays, core.getInput("comment_tag", {required: true}));
+
+})();

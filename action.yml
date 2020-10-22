@@ -11,6 +11,18 @@ input:
     description: "Steam API key used to interact with the Steam web API"
     required: true
     default: ${{ secrets.STEAM_API_KEY }}
+  comment_tag:
+    description: "The comment tags to look for: <!-- ${comment_tag}:START --> and <!-- ${comment_tag}:END -->"
+    required: true
+    default: "WORKSHOP-SHOWCASE"
+  readme_file:
+    description: "The path to the README file"
+    required: true
+    default: "README.md"
+  image_path:
+    description: "The path to the folder of generated images"
+    required: true
+    default: "media/steam-workshop-workflow/"
   workshop_items:
     description: "Steam Workshop items and optionally URLs to their source"
     required: true
