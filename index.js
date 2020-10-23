@@ -29,9 +29,10 @@ class SteamWorkshop {
 }
 
 class ItemDisplay {
-    constructor(details, imagePath) {
+    constructor(details, imagePath, info) {
         this.details = details;
         this.imagePath = imagePath;
+        this.info = info;
     }
 
     async generateImages() {
@@ -90,6 +91,19 @@ class WorkshopShowcase {
         this.filename = filename;
     }
 
+    generateHtml(itemDisplay) {
+        let s = "";
+
+        s += `
+        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
+            <img width="25%" src="${path.join(this.filename, "preview.png")}">
+            <img width="25%" src="${path.join(this.filename, "content.png")}">
+        </a>
+        `;
+
+        return s;
+    }
+
     writeShowcase(itemDisplays, commentTag) {
         let content = fs.readFileSync(this.filename, {encoding:"utf8", flag:"r"});
         console.log("IN:", content);
@@ -97,7 +111,12 @@ class WorkshopShowcase {
         let startTag = `<!-- ${commentTag}:START -->`;
         let endTag = `<!-- ${commentTag}:END -->`
 
-        let middleText = "sample text";
+        let middleText = "";
+
+        for (let i = 0; i < itemDisplays.length; i++) {
+            middleText += this.generateHtml(itemDisplays[i]);
+        }
+
         let startText = content.substring(0, content.indexOf(startTag) + startTag.length);
         let endText = content.substring(content.indexOf(endTag));
 
