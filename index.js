@@ -92,16 +92,11 @@ class WorkshopShowcase {
     }
 
     generateHtml(itemDisplay) {
-        let s = "";
-
-        s += `
+        return `
         <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
             <img width="25%" src="${path.join(this.filename, "preview.png")}">
             <img width="25%" src="${path.join(this.filename, "content.png")}">
-        </a>
-        `;
-
-        return s;
+        </a>`;
     }
 
     writeShowcase(itemDisplays, commentTag) {
@@ -135,12 +130,13 @@ class WorkshopShowcase {
     let details = await workshop.getDetails(Object.keys(inputItems));
     console.log(details);
 
-    let itemDisplays = {}
+    let itemDisplays = []
 
     for (let i = 0; i < details.length; i++) {
         const item = details[i];
         
         let display = new ItemDisplay(item, path.join(".", core.getInput("image_path", {required: true}), item.publishedfileid), inputItems[item.publishedfileid]);
+        itemDisplays.push(display);
         await display.generateImages();
     }
 
@@ -149,4 +145,5 @@ class WorkshopShowcase {
 
 })().catch(err => {
     core.setFailed(err);
+    throw err;
 });
