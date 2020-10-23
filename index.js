@@ -129,7 +129,7 @@ class WorkshopShowcase {
         await display.generateImages();
     }
 
-    let showcase = new WorkshopShowcase(path.join(__dirname, core.getInput("readme_file", {required: true})));
+    let showcase = new WorkshopShowcase(path.join(".", core.getInput("readme_file", {required: true})));
     showcase.writeShowcase(itemDisplays, core.getInput("comment_tag", {required: true}));
 
 })().catch(err => {
