@@ -107,10 +107,6 @@ class WorkshopShowcase {
     }
 }
 
-// module.exports.SteamWorkshop = SteamWorkshop;
-// module.exports.ItemDisplay = ItemDisplay;
-// module.exports.WorkshopShowcase = WorkshopShowcase;
-
 (async ()=>{
     const workshop = new SteamWorkshop(core.getInput("steam_api_key", {required: true}));
 
