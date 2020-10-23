@@ -94,8 +94,8 @@ class WorkshopShowcase {
     generateHtml(itemDisplay) {
         return `
         <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
-            <img width="25%" src="${path.join(this.filename, "preview.png")}">
-            <img width="25%" src="${path.join(this.filename, "content.png")}">
+            <img width="25%" src="${path.join(itemDisplay.imagePath, "preview.png")}">
+            <img width="25%" src="${path.join(itemDisplay.imagePath, "content.png")}">
         </a>`;
     }
 
