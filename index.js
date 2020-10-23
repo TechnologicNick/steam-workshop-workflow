@@ -108,9 +108,11 @@ class WorkshopShowcase {
 
         let middleText = "";
 
+        middleText += `<div>`
         for (let i = 0; i < itemDisplays.length; i++) {
             middleText += this.generateHtml(itemDisplays[i]);
         }
+        middleText += `</div>`
 
         let startText = content.substring(0, content.indexOf(startTag) + startTag.length);
         let endText = content.substring(content.indexOf(endTag));
