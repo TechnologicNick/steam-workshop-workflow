@@ -121,7 +121,7 @@ class WorkshopShowcase {
     for (let i = 0; i < details.length; i++) {
         const item = details[i];
         
-        let display = new ItemDisplay(item, path.join(__dirname, core.getInput("image_path", {required: true}), item.publishedfileid));
+        let display = new ItemDisplay(item, path.join(".", core.getInput("image_path", {required: true}), item.publishedfileid), inputItems[item.publishedfileid]);
         await display.generateImages();
     }
 
