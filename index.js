@@ -78,7 +78,7 @@ class ItemDisplay {
         const paddingLeft = 5;
 
         context.fillStyle = "black";
-        context.font = "17.5px Segoe UI"
+        context.font = "bold 17.5px Segoe UI"
 
         let measureTitle = context.measureText(`${title}`);
         let currentY = 0;
