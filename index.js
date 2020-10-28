@@ -40,7 +40,7 @@ class ItemDisplay {
 
         let widthContainer = 854;
         let width = Math.floor((widthContainer - padding) / 2); // 424
-        let height = 200;
+        let height = 85;
 
         let preview = 150;
 
@@ -71,17 +71,30 @@ class ItemDisplay {
         const canvas = createCanvas(width, height);
         const context = canvas.getContext("2d");
 
-        context.fillStyle = "rgba(0, 0, 0, 0.2)";
-        context.fillRect(0, 0, width, height);
+        // context.fillStyle = "rgba(0, 0, 0, 0.2)";
+        // context.fillRect(0, 0, width, height);
+
+        
 
         context.fillStyle = "black";
         context.font = "17.5px Segoe UI"
-        context.fillText(`${this.details.title}`, 0, 0);
+
+        let measureTitle = context.measureText(`${this.details.title}`);
+        let currentY = 0;
+        console.log("measureTitle", measureTitle);
+
+        context.fillText(`${this.details.title}`, 0, currentY += measureTitle.emHeightAscent);
+        currentY += measureTitle.emHeightDescent;
 
         context.fillStyle = "black";
         context.font = "14px Segoe UI"
-        context.fillText(`${this.details.views} views`, 0, 20);
-        context.fillText(`${this.details.lifetime_subscriptions} downloads`, 0, 40);
+
+        let measureInfo = context.measureText("info");
+
+        context.fillText(`  ${this.details.views} views`, 0, currentY += measureInfo.emHeightAscent);
+        context.fillText(`  ${this.details.lifetime_subscriptions} downloads`, 0, currentY += measureInfo.emHeightAscent);
+
+
 
         await this.saveFile(canvas, filename);
 
