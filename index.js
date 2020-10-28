@@ -36,9 +36,17 @@ class ItemDisplay {
     }
 
     async generateImages() {
+        let padding = 5; // 4.390625px measured using Chrome 86
+
+        let widthContainer = 854;
+        let width = Math.floor((widthContainer - padding) / 2); // 424
+        let height = 200;
+
+        let preview = 186;
+
         await Promise.all([
-            this.generatePreview("preview.png", 200, 200),
-            this.generateContent("content.png", 600, 200)
+            this.generatePreview("preview.png", preview, height),
+            this.generateContent("content.png", width - preview - padding, height)
         ]);
     }
 
@@ -64,7 +72,7 @@ class ItemDisplay {
         // let aspectRatio = preview.width/preview.height;
 
         // context.drawImage(preview, 0, height/2 - (200 / aspectRatio)/2, width, 200 / aspectRatio);
-        context.fillStyle = "rgba(0, 0, 0, 0.5)";
+        context.fillStyle = "rgba(0, 0, 0, 0.2)";
         context.fillRect(0, 0, width, height);
 
         await this.saveFile(canvas, filename);
@@ -93,9 +101,9 @@ class WorkshopShowcase {
 
     generateHtml(itemDisplay) {
         return `
-        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}" width="48%">
-            <img width="25%" src="${path.join(itemDisplay.imagePath, "preview.png")}">
-            <img width="75%" src="${path.join(itemDisplay.imagePath, "content.png")}">
+        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
+            <img src="${path.join(itemDisplay.imagePath, "preview.png")}">
+            <img src="${path.join(itemDisplay.imagePath, "content.png")}">
         </a>`;
     }
 
@@ -137,7 +145,8 @@ class WorkshopShowcase {
     for (let i = 0; i < details.length; i++) {
         const item = details[i];
         
-        let display = new ItemDisplay(item, path.join(".", core.getInput("image_path", {required: true}), item.publishedfileid), inputItems[item.publishedfileid]);
+        let imagePath = path.join(".", core.getInput("image_path", {required: true}), item.publishedfileid);
+        let display = new ItemDisplay(item, imagePath, inputItems[item.publishedfileid]);
         itemDisplays.push(display);
         await display.generateImages();
     }
