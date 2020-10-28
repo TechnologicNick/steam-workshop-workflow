@@ -57,7 +57,10 @@ class ItemDisplay {
         let preview = await loadImage(this.details.preview_url);
         let aspectRatio = preview.width/preview.height;
 
-        context.drawImage(preview, 0, height/2 - (height / aspectRatio)/2, width, height / aspectRatio);
+        let scale = Math.min(canvas.width / preview.width, canvas.height / preview.height);
+        let x = (canvas.width / 2) - (preview.width / 2) * scale;
+        let y = (canvas.height / 2) - (preview.height / 2) * scale;
+        context.drawImage(preview, x, y, preview.width * scale, preview.height * scale);
 
         await this.saveFile(canvas, filename);
 
