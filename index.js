@@ -42,7 +42,7 @@ class ItemDisplay {
         let width = Math.floor((widthContainer - padding) / 2); // 424
         let height = 200;
 
-        let preview = 186;
+        let preview = 150;
 
         await Promise.all([
             this.generatePreview("preview.png", preview, height),
@@ -57,7 +57,7 @@ class ItemDisplay {
         let preview = await loadImage(this.details.preview_url);
         let aspectRatio = preview.width/preview.height;
 
-        context.drawImage(preview, 0, height/2 - (200 / aspectRatio)/2, width, 200 / aspectRatio);
+        context.drawImage(preview, 0, height/2 - (height / aspectRatio)/2, width, height / aspectRatio);
 
         await this.saveFile(canvas, filename);
 
@@ -68,12 +68,17 @@ class ItemDisplay {
         const canvas = createCanvas(width, height);
         const context = canvas.getContext("2d");
 
-        // let preview = await loadImage(this.details.preview_url);
-        // let aspectRatio = preview.width/preview.height;
-
-        // context.drawImage(preview, 0, height/2 - (200 / aspectRatio)/2, width, 200 / aspectRatio);
         context.fillStyle = "rgba(0, 0, 0, 0.2)";
         context.fillRect(0, 0, width, height);
+
+        context.fillStyle = "black";
+        context.font = "17.5px Segoe UI"
+        context.fillText(`${this.details.title}`, 0, 0);
+
+        context.fillStyle = "black";
+        context.font = "14px Segoe UI"
+        context.fillText(`${this.details.views} views`, 0, 20);
+        context.fillText(`${this.details.lifetime_subscriptions} downloads`, 0, 40);
 
         await this.saveFile(canvas, filename);
 
