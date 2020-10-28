@@ -74,16 +74,17 @@ class ItemDisplay {
         // context.fillStyle = "rgba(0, 0, 0, 0.2)";
         // context.fillRect(0, 0, width, height);
 
-        
+        const title = this.info.title !== undefined ? this.info.title : this.details.title;
+        const paddingLeft = 5;
 
         context.fillStyle = "black";
         context.font = "17.5px Segoe UI"
 
-        let measureTitle = context.measureText(`${this.details.title}`);
+        let measureTitle = context.measureText(`${title}`);
         let currentY = 0;
         // console.log("measureTitle", measureTitle);
 
-        context.fillText(`${this.details.title}`, 0, currentY += measureTitle.emHeightAscent);
+        context.fillText(`${title}`, paddingLeft, currentY += measureTitle.emHeightAscent);
         currentY += measureTitle.emHeightDescent;
 
         context.fillStyle = "black";
@@ -91,8 +92,8 @@ class ItemDisplay {
 
         let measureInfo = context.measureText("info");
 
-        context.fillText(`  ${this.details.views} views`, 0, currentY += measureInfo.emHeightAscent);
-        context.fillText(`  ${this.details.lifetime_subscriptions} downloads`, 0, currentY += measureInfo.emHeightAscent);
+        context.fillText(`  ${this.details.views} views`, paddingLeft, currentY += measureInfo.emHeightAscent);
+        context.fillText(`  ${this.details.lifetime_subscriptions} downloads`, paddingLeft, currentY += measureInfo.emHeightAscent);
 
 
 
@@ -164,12 +165,13 @@ class WorkshopShowcase {
     let itemDisplays = []
 
     for (let i = 0; i < ids.length; i++) {
-        const item = details.find(d => {
+        const itemDetails = details.find(d => {
             return parseInt(d.publishedfileid) === ids[i];
         });
+        const info = inputItems[i];
 
-        let imagePath = path.join(".", core.getInput("image_path", {required: true}), item.publishedfileid);
-        let display = new ItemDisplay(item, imagePath, inputItems[item.publishedfileid]);
+        let imagePath = path.join(".", core.getInput("image_path", {required: true}), itemDetails.publishedfileid);
+        let display = new ItemDisplay(itemDetails, imagePath, info);
         itemDisplays.push(display);
         await display.generateImages();
     }
