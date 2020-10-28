@@ -94,6 +94,7 @@ class ItemDisplay {
 
         context.fillText(`  ${this.details.views} views`, paddingLeft, currentY += measureInfo.emHeightAscent);
         context.fillText(`  ${this.details.lifetime_subscriptions} downloads`, paddingLeft, currentY += measureInfo.emHeightAscent);
+        context.fillText(`  ${this.details.favorited} favorites`, paddingLeft, currentY += measureInfo.emHeightAscent);
 
 
 
