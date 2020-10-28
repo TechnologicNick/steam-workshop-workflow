@@ -15,11 +15,33 @@ And even more text!
     process.env.INPUT_COMMENT_TAG = "WORKSHOP-SHOWCASE";
     process.env.INPUT_README_FILE = "/test/README.md";
     process.env.INPUT_IMAGE_PATH = "/test/media/steam-workshop-workflow/";
-    process.env.INPUT_WORKSHOP_ITEMS = `{
-        "1396115995": {
+    process.env.INPUT_WORKSHOP_ITEMS = `[
+        {
+            "id": 881254777,
+            "github": "https://github.com/brentbatch/The-Modpack"
+        },
+        {
+            "id": 1396115995,
             "github": "https://github.com/TechnologicNick/WASD-Converter"
+        },
+        {
+            "id": 1394654240,
+            "github": "https://github.com/TechnologicNick/Electromagnets"
+        },
+        {
+            "id": 1428574074,
+            "github": "https://github.com/TechnologicNick/CameraControls"
+        },
+        {
+            "id": 893341654,
+            "github": "https://github.com/TechnologicNick/Paintable-Lasers"
+        },
+        {
+            "id": 1616051926,
+            "github": "https://github.com/TechnologicNick/Scrap-Guard",
+            "title": "Scrap Guard"
         }
-    }`;
+    ]`;
 
     fs.mkdirSync(path.join(__dirname, "/test/"), {recursive: true});
     fs.writeFileSync(path.join(__dirname, process.env.INPUT_README_FILE), template);

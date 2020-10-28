@@ -81,7 +81,7 @@ class ItemDisplay {
 
         let measureTitle = context.measureText(`${this.details.title}`);
         let currentY = 0;
-        console.log("measureTitle", measureTitle);
+        // console.log("measureTitle", measureTitle);
 
         context.fillText(`${this.details.title}`, 0, currentY += measureTitle.emHeightAscent);
         currentY += measureTitle.emHeightDescent;
@@ -141,7 +141,7 @@ class WorkshopShowcase {
         for (let i = 0; i < itemDisplays.length; i++) {
             middleText += this.generateHtml(itemDisplays[i]);
         }
-        middleText += `</div>`
+        middleText += `\n</div>`
 
         let startText = content.substring(0, content.indexOf(startTag) + startTag.length);
         let endText = content.substring(content.indexOf(endTag));
@@ -156,16 +156,18 @@ class WorkshopShowcase {
     const workshop = new SteamWorkshop(core.getInput("steam_api_key", {required: true}));
 
     let inputItems = JSON.parse(core.getInput("workshop_items", {required: true}));
-    
+    let ids = inputItems.map(item => item.id);
 
-    let details = await workshop.getDetails(Object.keys(inputItems));
-    console.log(details);
+    let details = await workshop.getDetails(ids);
+    //console.log(ids, details);
 
     let itemDisplays = []
 
-    for (let i = 0; i < details.length; i++) {
-        const item = details[i];
-        
+    for (let i = 0; i < ids.length; i++) {
+        const item = details.find(d => {
+            return parseInt(d.publishedfileid) === ids[i];
+        });
+
         let imagePath = path.join(".", core.getInput("image_path", {required: true}), item.publishedfileid);
         let display = new ItemDisplay(item, imagePath, inputItems[item.publishedfileid]);
         itemDisplays.push(display);
