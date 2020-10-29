@@ -1,0 +1,29 @@
+<svg
+    width="${width}"
+    height="${height}"
+    viewBox="0 0 ${width} ${height}"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <style>
+        text {
+            fill: black;
+            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+        }
+
+        .title {
+            font-weight: 600;
+        }
+    </style>
+
+    <image x="0" y="0" width="${preview_width}" height="${height}" preserveAspectRatio="xMidYMid meet" href="${details.preview_url}"/>
+
+    <text x="${preview_width + 7.5}" y="0" class="title">
+        <tspan x="${preview_width + 7.5}" dy="1.2em">${details.title}</tspan>
+    </text>
+    <text x="${preview_width + 15}" y="25">
+        <tspan x="${preview_width + 15}" dy="1.2em">${details.views} views</tspan>
+        <tspan x="${preview_width + 15}" dy="1.2em">${details.lifetime_subscriptions} downloads</tspan>
+        <tspan x="${preview_width + 15}" dy="1.2em">${details.favorited} favorites</tspan>
+    </text>
+</svg>

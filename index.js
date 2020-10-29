@@ -3,7 +3,7 @@ const { createCanvas, loadImage } = require('canvas');
 const fs = require('fs');
 const core = require('@actions/core');
 const path = require('path');
-
+const template = require('es6-template-strings');
 
 class SteamWorkshop {
     constructor(apiKey) {
@@ -40,14 +40,34 @@ class ItemDisplay {
 
         let widthContainer = 854;
         let width = Math.floor((widthContainer - padding) / 2); // 424
-        let height = 85;
+        let height = 100;
 
-        let preview = 150;
+        let preview = 178;
 
         await Promise.all([
             this.generatePreview("preview.png", preview, height),
-            this.generateContent("content.png", width - preview - padding, height)
+            this.generateContent("content.png", width - preview - padding, height),
+            this.generateSvg("info.svg", width, height, preview)
         ]);
+    }
+
+    async generateSvg(filename, width, height, preview_width) {
+        let raw = fs.readFileSync("template.svg", "utf-8");
+
+        fs.mkdirSync(this.imagePath, {recursive: true});
+
+        let data = template(raw, {
+            width: width,
+            height: height,
+            preview_width: preview_width,
+            details: this.details,
+            imagePath: this.imagePath,
+            info: this.info
+        });
+
+        fs.writeFileSync(path.join(this.imagePath, filename), data);
+
+        console.log(`[${this.details.publishedfileid}] Generated ${filename.substring(filename.lastIndexOf(path.sep))}`);
     }
 
     async generatePreview(filename, width, height) {
@@ -64,7 +84,7 @@ class ItemDisplay {
 
         await this.saveFile(canvas, filename);
 
-        console.log(`[${this.details.publishedfileid}] Generated preview.png`);
+        console.log(`[${this.details.publishedfileid}] Generated ${filename.substring(filename.lastIndexOf(path.sep))}`);
     }
 
     async generateContent(filename, width, height) {
@@ -100,7 +120,7 @@ class ItemDisplay {
 
         await this.saveFile(canvas, filename);
 
-        console.log(`[${this.details.publishedfileid}] Generated content.png`);
+        console.log(`[${this.details.publishedfileid}] Generated ${filename.substring(filename.lastIndexOf(path.sep))}`);
     }
 
     async saveFile(canvas, filename) {
@@ -125,9 +145,11 @@ class WorkshopShowcase {
     generateHtml(itemDisplay) {
         return `
         <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
-            <img src="${path.join(itemDisplay.imagePath, "preview.png")}">
-            <img src="${path.join(itemDisplay.imagePath, "content.png")}">
+            <img src="${path.join(itemDisplay.imagePath, "info.svg")}">
         </a>`;
+
+        // <img src="${path.join(itemDisplay.imagePath, "preview.png")}">
+        // <img src="${path.join(itemDisplay.imagePath, "content.png")}">
     }
 
     writeShowcase(itemDisplays, commentTag) {
@@ -170,6 +192,8 @@ class WorkshopShowcase {
             return parseInt(d.publishedfileid) === ids[i];
         });
         const info = inputItems[i];
+
+        // console.log(itemDetails);
 
         let imagePath = path.join(".", core.getInput("image_path", {required: true}), itemDetails.publishedfileid);
         let display = new ItemDisplay(itemDetails, imagePath, info);
