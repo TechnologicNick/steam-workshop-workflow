@@ -46,7 +46,7 @@ class ItemDisplay {
 
         await Promise.all([
             this.generatePreview("preview.png", preview, height),
-            this.generateContent("content.png", width - preview - padding, height),
+            // this.generateContent("content.png", width - preview - padding, height),
             this.generateSvg("info.svg", width - preview - padding, height)
         ]);
     }
