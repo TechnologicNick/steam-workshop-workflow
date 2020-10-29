@@ -47,11 +47,11 @@ class ItemDisplay {
         await Promise.all([
             this.generatePreview("preview.png", preview, height),
             this.generateContent("content.png", width - preview - padding, height),
-            this.generateSvg("info.svg", width, height, preview)
+            this.generateSvg("info.svg", width - preview - padding, height)
         ]);
     }
 
-    async generateSvg(filename, width, height, preview_width) {
+    async generateSvg(filename, width, height) {
         let raw = fs.readFileSync(path.join(__dirname, "/template.svg"), "utf-8");
 
         fs.mkdirSync(this.imagePath, {recursive: true});
@@ -59,7 +59,6 @@ class ItemDisplay {
         let data = template(raw, {
             width: width,
             height: height,
-            preview_width: preview_width,
             details: this.details,
             imagePath: this.imagePath,
             info: this.info
@@ -145,10 +144,10 @@ class WorkshopShowcase {
     generateHtml(itemDisplay) {
         return `
         <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
+            <img src="${path.join(itemDisplay.imagePath, "preview.png")}">
             <img src="${path.join(itemDisplay.imagePath, "info.svg")}">
         </a>`;
 
-        // <img src="${path.join(itemDisplay.imagePath, "preview.png")}">
         // <img src="${path.join(itemDisplay.imagePath, "content.png")}">
     }
 

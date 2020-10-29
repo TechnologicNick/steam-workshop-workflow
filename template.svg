@@ -16,14 +16,12 @@
         }
     </style>
 
-    <image x="0" y="0" width="${preview_width}" height="${height}" preserveAspectRatio="xMidYMid meet" href="./preview.png"/>
-
-    <text x="${preview_width + 7.5}" y="0" class="title">
-        <tspan x="${preview_width + 7.5}" dy="1.2em">${info.title !== undefined ? info.title : details.title}</tspan>
+    <text x="0" y="0" class="title">
+        <tspan x="0" dy="1.2em">${info.title !== undefined ? info.title : details.title}</tspan>
     </text>
-    <text x="${preview_width + 15}" y="25">
-        <tspan x="${preview_width + 15}" dy="1.2em">${details.views} views</tspan>
-        <tspan x="${preview_width + 15}" dy="1.2em">${details.lifetime_subscriptions} downloads</tspan>
-        <tspan x="${preview_width + 15}" dy="1.2em">${details.favorited} favorites</tspan>
+    <text x="0" y="25">
+        <tspan x="10" dy="1.2em">${details.views} views</tspan>
+        <tspan x="10" dy="1.2em">${details.lifetime_subscriptions} downloads</tspan>
+        <tspan x="10" dy="1.2em">${details.favorited} favorites</tspan>
     </text>
 </svg>
