@@ -21,7 +21,7 @@ inputs:
   github_raw_path:
     description: "The path to the raw files, example: /TechnologicNick/TechnologicNick/raw/master/"
     required: true
-    default: ${{ "/" + github.repository + "/raw/master/" }}
+    default: "/${{ github.repository }}/raw/master/"
   workshop_items:
     description: "Steam Workshop items and optionally URLs to their source"
     required: true
