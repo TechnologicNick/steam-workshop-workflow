@@ -15,7 +15,7 @@ And even more text!
     process.env.INPUT_COMMENT_TAG = "WORKSHOP-SHOWCASE";
     process.env.INPUT_README_FILE = "/test/README.md";
     process.env.INPUT_IMAGE_PATH = "/test/media/steam-workshop-workflow/";
-    process.env.INPUT_ICON_STEAM = "https://raw.githubusercontent.com/TechnologicNick/steam-workshop-workflow/master/steam_icon_black.svg,24,24";
+    process.env.INPUT_ICON_STEAM = "https://raw.githubusercontent.com/TechnologicNick/steam-workshop-workflow/master/steam_icon_black.svg,36,36";
     process.env.INPUT_WORKSHOP_ITEMS = `[
         {
             "id": 881254777,
