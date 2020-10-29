@@ -52,7 +52,7 @@ class ItemDisplay {
     }
 
     async generateSvg(filename, width, height, preview_width) {
-        let raw = fs.readFileSync("./template.svg", "utf-8");
+        let raw = fs.readFileSync(path.join(__dirname, "/template.svg"), "utf-8");
 
         fs.mkdirSync(this.imagePath, {recursive: true});
 
