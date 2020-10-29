@@ -6,7 +6,6 @@ inputs:
   steam_api_key:
     description: "Steam API key used to interact with the Steam web API"
     required: true
-    default: ${{ secrets.STEAM_API_KEY }}
   comment_tag:
     description: "The comment tags to look for: <!-- comment_tag:START --> and <!-- comment_tag:END -->"
     required: false
