@@ -44,7 +44,7 @@ class ItemDisplay {
 
         let preview = 178;
 
-        let widthSteamIcon = core.getInput("icon_steam", {required: true})[1];
+        let widthSteamIcon = core.getInput("icon_steam", {required: true}).split(',')[1];
 
         await Promise.all([
             this.generatePreview("preview.png", preview, height),
@@ -144,7 +144,7 @@ class WorkshopShowcase {
     }
 
     generateHtml(itemDisplay) {
-        const icon_steam = core.getInput("icon_steam", {required: true});
+        const icon_steam = core.getInput("icon_steam", {required: true}).split(',');
 
         return `
         <a href="${itemDisplay.info.source_code}">
