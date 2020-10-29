@@ -44,10 +44,12 @@ class ItemDisplay {
 
         let preview = 178;
 
+        let widthSteamIcon = core.getInput("icon_steam", {required: true})[1];
+
         await Promise.all([
             this.generatePreview("preview.png", preview, height),
             // this.generateContent("content.png", width - preview - padding, height),
-            this.generateSvg("info.svg", width - preview - 24 /* steam_icon_logo.svg */ - 2*padding, height)
+            this.generateSvg("info.svg", width - preview - widthSteamIcon - 2*padding, height)
         ]);
     }
 
@@ -142,12 +144,14 @@ class WorkshopShowcase {
     }
 
     generateHtml(itemDisplay) {
+        const icon_steam = core.getInput("icon_steam", {required: true});
+
         return `
         <a href="${itemDisplay.info.source_code}">
             <img src="${path.join(itemDisplay.imagePath, "preview.png")}">
             <img src="${path.join(itemDisplay.imagePath, "info.svg")}">
             <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
-                <img src="steam_icon_logo.svg">
+                <img src="${icon_steam[0]}" width="${icon_steam[1]}px", height="${icon_steam[2]}px">
             </a>
         </a>`;
 
