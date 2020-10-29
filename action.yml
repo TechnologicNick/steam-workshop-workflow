@@ -21,7 +21,7 @@ inputs:
   icon_steam:
     description: "The URL to the Steam icon"
     required: true
-    default: "https://raw.githubusercontent.com/TechnologicNick/steam-workshop-workflow/master/steam_icon_black.svg,24,24"
+    default: "https://raw.githubusercontent.com/TechnologicNick/steam-workshop-workflow/master/steam_icon_black.svg,36,36"
   workshop_items:
     description: "Steam Workshop items and optionally URLs to their source"
     required: true
