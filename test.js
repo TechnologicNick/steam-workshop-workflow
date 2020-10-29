@@ -18,27 +18,27 @@ And even more text!
     process.env.INPUT_WORKSHOP_ITEMS = `[
         {
             "id": 881254777,
-            "github": "https://github.com/brentbatch/The-Modpack"
+            "source_code": "https://github.com/brentbatch/The-Modpack"
         },
         {
             "id": 1396115995,
-            "github": "https://github.com/TechnologicNick/WASD-Converter"
+            "source_code": "https://github.com/TechnologicNick/WASD-Converter"
         },
         {
             "id": 1394654240,
-            "github": "https://github.com/TechnologicNick/Electromagnets"
+            "source_code": "https://github.com/TechnologicNick/Electromagnets"
         },
         {
             "id": 1428574074,
-            "github": "https://github.com/TechnologicNick/CameraControls"
+            "source_code": "https://github.com/TechnologicNick/CameraControls"
         },
         {
             "id": 893341654,
-            "github": "https://github.com/TechnologicNick/Paintable-Lasers"
+            "source_code": "https://github.com/TechnologicNick/Paintable-Lasers"
         },
         {
             "id": 1616051926,
-            "github": "https://github.com/TechnologicNick/Scrap-Guard",
+            "source_code": "https://github.com/TechnologicNick/Scrap-Guard",
             "title": "Scrap Guard"
         }
     ]`;

@@ -47,7 +47,7 @@ class ItemDisplay {
         await Promise.all([
             this.generatePreview("preview.png", preview, height),
             // this.generateContent("content.png", width - preview - padding, height),
-            this.generateSvg("info.svg", width - preview - padding, height)
+            this.generateSvg("info.svg", width - preview - 24 /* steam_icon_logo.svg */ - 2*padding, height)
         ]);
     }
 
@@ -143,9 +143,12 @@ class WorkshopShowcase {
 
     generateHtml(itemDisplay) {
         return `
-        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
+        <a href="${itemDisplay.info.source_code}">
             <img src="${path.join(itemDisplay.imagePath, "preview.png")}">
             <img src="${path.join(itemDisplay.imagePath, "info.svg")}">
+            <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
+                <img src="steam_icon_logo.svg">
+            </a>
         </a>`;
 
         // <img src="${path.join(itemDisplay.imagePath, "content.png")}">
