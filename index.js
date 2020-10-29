@@ -62,8 +62,7 @@ class ItemDisplay {
             preview_width: preview_width,
             details: this.details,
             imagePath: this.imagePath,
-            info: this.info,
-            github_raw_path: core.getInput("github_raw_path", {required: true})
+            info: this.info
         });
 
         fs.writeFileSync(path.join(this.imagePath, filename), data);
