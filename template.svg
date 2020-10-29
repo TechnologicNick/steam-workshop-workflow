@@ -19,7 +19,7 @@
     <image x="0" y="0" width="${preview_width}" height="${height}" preserveAspectRatio="xMidYMid meet" href="${details.preview_url}"/>
 
     <text x="${preview_width + 7.5}" y="0" class="title">
-        <tspan x="${preview_width + 7.5}" dy="1.2em">${details.title}</tspan>
+        <tspan x="${preview_width + 7.5}" dy="1.2em">${info.title !== undefined ? info.title : details.title}</tspan>
     </text>
     <text x="${preview_width + 15}" y="25">
         <tspan x="${preview_width + 15}" dy="1.2em">${details.views} views</tspan>
