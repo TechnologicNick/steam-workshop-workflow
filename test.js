@@ -15,6 +15,7 @@ And even more text!
     process.env.INPUT_COMMENT_TAG = "WORKSHOP-SHOWCASE";
     process.env.INPUT_README_FILE = "/test/README.md";
     process.env.INPUT_IMAGE_PATH = "/test/media/steam-workshop-workflow/";
+    process.env.INPUT_GITHUB_RAW_PATH = __dirname + path.sep;
     process.env.INPUT_WORKSHOP_ITEMS = `[
         {
             "id": 881254777,
