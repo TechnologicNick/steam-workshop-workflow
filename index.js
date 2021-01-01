@@ -47,14 +47,13 @@ class ItemDisplay {
         let widthSteamIcon = core.getInput("icon_steam", {required: true}).split(',')[1];
 
         await Promise.all([
-            this.generatePreview("preview.png", preview, height)
+            this.generatePreview("preview.png", preview, height),
             // this.generateContent("content.png", width - preview - padding, height),
+            this.generateSvg("info.svg", width - preview - widthSteamIcon - 2*padding, height)
         ]);
-
-        this.svgData = this.generateSvg("info.svg", width - preview - widthSteamIcon - 2*padding, height);
     }
 
-    generateSvg(filename, width, height) {
+    async generateSvg(filename, width, height) {
         let raw = fs.readFileSync(path.join(__dirname, "/template.svg"), "utf-8");
 
         fs.mkdirSync(this.imagePath, {recursive: true});
@@ -67,11 +66,9 @@ class ItemDisplay {
             info: this.info
         });
 
-        // fs.writeFileSync(path.join(this.imagePath, filename), data);
+        fs.writeFileSync(path.join(this.imagePath, filename), data);
 
         console.log(`[${this.details.publishedfileid}] Generated ${filename.substring(filename.lastIndexOf(path.sep))}`);
-
-        return data;
     }
 
     async generatePreview(filename, width, height) {
@@ -152,7 +149,7 @@ class WorkshopShowcase {
         return `
         <a href="${itemDisplay.info.source_code}">
             <img src="${path.join(itemDisplay.imagePath, "preview.png")}">
-            ${itemDisplay.svgData}
+            <img src="${path.join(itemDisplay.imagePath, "info.svg")}">
             <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${itemDisplay.details.publishedfileid}">
                 <img src="${icon_steam[0]}" width="${icon_steam[1]}px", height="${icon_steam[2]}px">
             </a>
