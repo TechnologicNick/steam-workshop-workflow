@@ -20,8 +20,8 @@
         <tspan x="5" dy="1.2em">${info.title !== undefined ? info.title : details.title}</tspan>
     </text>
     <text x="15" y="25">
-        <tspan x="15" dy="1.2em">${details.views} views</tspan>
-        <tspan x="15" dy="1.2em">${details.lifetime_subscriptions} downloads</tspan>
-        <tspan x="15" dy="1.2em">${details.favorited} favorites</tspan>
+        <tspan x="15" dy="1.2em">${summedDetails.views} views</tspan>
+        <tspan x="15" dy="1.2em">${summedDetails.lifetime_subscriptions} downloads</tspan>
+        <tspan x="15" dy="1.2em">${summedDetails.favorited} favorites</tspan>
     </text>
 </svg>

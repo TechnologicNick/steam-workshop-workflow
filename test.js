@@ -19,7 +19,10 @@ And even more text!
     process.env.INPUT_WORKSHOP_ITEMS = `[
         {
             "id": 881254777,
-            "source_code": "https://github.com/brentbatch/The-Modpack"
+            "add_stats": [
+                2448492759
+            ],
+            "source_code": "https://github.com/SMTheGuild/The-Modpack"
         },
         {
             "id": 1396115995,

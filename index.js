@@ -12,6 +12,7 @@ class SteamWorkshop {
 
     async getDetails(ids) {
         if(typeof(ids) === "number") ids = [ids];
+        console.log("Requesting details for", ids);
 
         let url = `https://api.steampowered.com/IPublishedFileService/GetDetails/v1/?key=${this.apiKey}`;
 
@@ -29,10 +30,11 @@ class SteamWorkshop {
 }
 
 class ItemDisplay {
-    constructor(details, imagePath, info) {
+    constructor(details, imagePath, info, addStatsDetails) {
         this.details = details;
         this.imagePath = imagePath;
         this.info = info;
+        this.addStatsDetails = addStatsDetails;
     }
 
     async generateImages() {
@@ -58,10 +60,18 @@ class ItemDisplay {
 
         fs.mkdirSync(this.imagePath, {recursive: true});
 
+        let sum = arr => arr.reduce((a, b) => a + b, 0);
+
+        let allDetails = [this.details, ...this.addStatsDetails];
+        let summedDetails = Object.fromEntries(Object.entries(this.details).map(([key, value]) => {
+            return [key, sum(allDetails.map(d => d[key]))];
+        }));
+
         let data = template(raw, {
             width: width,
             height: height,
             details: this.details,
+            summedDetails: summedDetails,
             imagePath: this.imagePath,
             info: this.info
         });
@@ -113,9 +123,16 @@ class ItemDisplay {
 
         let measureInfo = context.measureText("info");
 
-        context.fillText(`  ${this.details.views} views`, paddingLeft, currentY += measureInfo.emHeightAscent);
-        context.fillText(`  ${this.details.lifetime_subscriptions} downloads`, paddingLeft, currentY += measureInfo.emHeightAscent);
-        context.fillText(`  ${this.details.favorited} favorites`, paddingLeft, currentY += measureInfo.emHeightAscent);
+        let sum = arr => arr.reduce((a, b) => a + b, 0);
+
+        let allDetails = [this.details, ...this.addStatsDetails];
+        let countViews     = sum(allDetails.map(d => d.views));
+        let countDownloads = sum(allDetails.map(d => d.lifetime_subscriptions));
+        let countFavorites = sum(allDetails.map(d => d.favorited));
+
+        context.fillText(`  ${countViews    } views`, paddingLeft, currentY += measureInfo.emHeightAscent);
+        context.fillText(`  ${countDownloads} downloads`, paddingLeft, currentY += measureInfo.emHeightAscent);
+        context.fillText(`  ${countFavorites} favorites`, paddingLeft, currentY += measureInfo.emHeightAscent);
 
 
 
@@ -187,22 +204,25 @@ class WorkshopShowcase {
 
     let inputItems = JSON.parse(core.getInput("workshop_items", {required: true}));
     let ids = inputItems.map(item => item.id);
+    for (let item of inputItems) {
+        if (item.add_stats) {
+            ids.push(...item.add_stats);
+        }
+    }
 
     let details = await workshop.getDetails(ids);
     //console.log(ids, details);
 
     let itemDisplays = []
 
-    for (let i = 0; i < ids.length; i++) {
-        const itemDetails = details.find(d => {
-            return parseInt(d.publishedfileid) === ids[i];
-        });
-        const info = inputItems[i];
+    for (let info of inputItems) {
+        const itemDetails = details.find(d => info.id == d.publishedfileid);
+        const addStatsDetails = info.add_stats ? details.filter(d => info.add_stats.includes(parseInt(d.publishedfileid))) : [];
 
         // console.log(itemDetails);
 
         let imagePath = path.join(".", core.getInput("image_path", {required: true}), itemDetails.publishedfileid);
-        let display = new ItemDisplay(itemDetails, imagePath, info);
+        let display = new ItemDisplay(itemDetails, imagePath, info, addStatsDetails);
         itemDisplays.push(display);
         await display.generateImages();
     }
