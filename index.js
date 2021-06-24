@@ -85,7 +85,7 @@ class ItemDisplay {
         const canvas = createCanvas(width, height);
         const context = canvas.getContext("2d");
 
-        let preview = await loadImage(this.details.preview_url);
+        let preview = await loadImage(this.info.image || this.details.preview_url);
         let aspectRatio = preview.width/preview.height;
 
         let scale = Math.min(canvas.width / preview.width, canvas.height / preview.height);

@@ -22,6 +22,7 @@ And even more text!
             "add_stats": [
                 2448492759
             ],
+            "image": "https://raw.githubusercontent.com/SMTheGuild/The-Modpack/master/preview.jpg",
             "source_code": "https://github.com/SMTheGuild/The-Modpack"
         },
         {
