@@ -40,8 +40,8 @@ class ItemDisplay {
     async generateImages() {
         let padding = 5; // 4.390625px measured using Chrome 86
 
-        let widthContainer = 854;
-        let width = Math.floor((widthContainer - padding) / 2); // 424
+        let widthContainer = 846;
+        let width = Math.floor((widthContainer - padding) / 2); // 420
         let height = 100;
 
         let preview = 178;
