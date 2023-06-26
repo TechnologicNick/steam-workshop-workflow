@@ -15,10 +15,10 @@
   "author": "TechnologicNick",
   "license": "ISC",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "canvas": "^2.6.1",
-    "dotenv": "^8.2.0",
+    "@actions/core": "^1.10.0",
+    "canvas": "^2.11.2",
+    "dotenv": "^8.6.0",
     "es6-template-strings": "^2.0.1",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.11"
   }
 }
