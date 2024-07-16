@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const { createCanvas, loadImage } = require('canvas');
 const fs = require('fs');
 const core = require('@actions/core');
